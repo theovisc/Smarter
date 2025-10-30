@@ -9,71 +9,93 @@ import {
 } from "react-native-responsive-dimensions";
 import { useNavigation } from "@react-navigation/native";
 
-
 export default function HomeScreen() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  // 👉 Si l’appareil a une encoche (iPhone X et +)
-  // on réduit légèrement la marge SafeArea en bas
+
   const adjustedMarginBottom = insets.bottom > 20 ? -10 : 0;
-  const bottomSpace = responsiveHeight(12) + insets.bottom; // hauteur bandeau + zone safe
+  const bottomSpace = responsiveHeight(12) + insets.bottom;
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      {/* Contenu principal */}
-      <View style={[styles.container, {paddingBottom: bottomSpace}]}>
-        <View style={styles.textBlock}>
-          <Text style={styles.title}>Bonjour, Théo</Text>
-          <Text style={styles.subtitle}>
-            Deviens une meilleure version de toi-même
-          </Text>
+    <View style={{ flex: 1 }}>
+      {/* 🎨 FOND D'ÉCRAN DÉGRADÉ */}
+      <LinearGradient
+        colors={[
+          "#43e97b", // vert clair frais
+          "#38f9d7", // turquoise (transition douce vers bleu)
+          "#1e88e5", // bleu profond (intelligence, IA)
+          "#f53844", // rouge énergique
+        ]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        locations={[0, 0.3, 0.65, 0.95]} // proportion du dégradé
+        style={StyleSheet.absoluteFillObject}
+      />
+
+      {/* CONTENU PRINCIPAL */}
+      <SafeAreaView style={[styles.safeArea, { backgroundColor: "transparent" }]}>
+        <View style={[styles.container, { paddingBottom: bottomSpace }]}>
+          <View style={styles.textBlock}>
+            <Text style={styles.title}>Bonjour, Théo</Text>
+            <Text style={styles.subtitle}>
+              Deviens une meilleure version de toi-même
+            </Text>
+          </View>
+
+          {/* Bouton Daily Boost */}
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("DailyBoost")}
+          >
+            <LinearGradient
+              colors={["#2ecc71", "#1E88E5", "#e74c3c"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.dailyBoost}
+            >
+              <Text style={styles.DailyBoostText}>Daily Boost</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
 
-        {/* Bouton Daily Boost */}
-        <TouchableOpacity activeOpacity={0.8}
-          onPress={() => navigation.navigate("DailyBoost")}>
-          <LinearGradient
-            colors={["#2ecc71", "#1E88E5", "#e74c3c"]} // dégradé vert → bleu → rouge
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.dailyBoost}
+        {/* Remplissage en bas pour écran avec une barre d'iPhone */}
+        {insets.bottom > 20 && (
+          <View style={[styles.bottomFill, { height: insets.bottom }]} />
+        )}
+
+        {/* Bandeau du bas */}
+        <View
+          style={[
+            styles.bottomBar,
+            { marginBottom: adjustedMarginBottom },
+          ]}
+        >
+          <TouchableOpacity
+            style={[styles.button, styles.mental]}
+            onPress={() => navigation.navigate("Mental")}
           >
-            <Text style={styles.DailyBoostText}>Daily Boost</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
+            <Text style={styles.buttonText}>Mental</Text>
+          </TouchableOpacity>
 
-      {/* Couleur sous la barre pour combler l’espace blanc sur iPhone */}
-      {insets.bottom > 20 && (
-        <View style={[styles.bottomFill, { height: insets.bottom }]} />
-      )}
+          <TouchableOpacity
+            style={styles.circle}
+            onPress={() => navigation.navigate("IA")}
+          >
+            <Text style={styles.circleText}>IA</Text>
+          </TouchableOpacity>
 
-      {/* Bandeau du bas */}
-      <View
-        style={[
-          styles.bottomBar,
-          { marginBottom: adjustedMarginBottom }, // 👈 décale le bandeau si encoche
-        ]}
-      >
-        <TouchableOpacity style={[styles.button, styles.mental]}
-          onPress={() => navigation.navigate("Mental")}>
-          
-          <Text style={styles.buttonText}>Mental</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.circle}
-          onPress={() => navigation.navigate("IA")}>
-          <Text style={styles.circleText}>IA</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={[styles.button, styles.physique]}
-          onPress={() => navigation.navigate("Physique")}>
-          <Text style={styles.buttonText}>Physique</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+          <TouchableOpacity
+            style={[styles.button, styles.physique]}
+            onPress={() => navigation.navigate("Physique")}
+          >
+            <Text style={styles.buttonText}>Physique</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   safeArea: {
