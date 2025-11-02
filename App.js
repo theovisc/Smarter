@@ -3,7 +3,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import MentalScreen from "./src/screens/MentalScreen"; // tu as déjà ce fichier
-
+import CalculMentalScreen from "./src/screens/CalculMentalScreen";
+import CalculMentalSelectScreen from "./src/screens/CalculMentalSelectScreen";
+import NBackScreen from "./src/screens/NBackScreen";
+import TravailScreen from "./src/screens/TravailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -11,8 +14,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        
         <Stack.Screen name="Home" component={HomeScreen} />
-        {/* Animations personnalisées */}
+        
         <Stack.Screen
           name="Mental"
           component={MentalScreen}
@@ -36,6 +40,24 @@ export default function App() {
           component={() => null}
           options={{ animation: "fade" }} // effet central
         />
+
+        <Stack.Screen
+        name="CalculMentalSelect"
+        component={CalculMentalSelectScreen}
+        />
+
+        <Stack.Screen
+          name="CalculMental"
+          component={CalculMentalScreen}
+        />
+
+        <Stack.Screen
+          name="NBack"
+          component={NBackScreen}
+        />
+
+        <Stack.Screen name="Travail" component={TravailScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -7,10 +7,12 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MentalScreen() {
+  const navigation = useNavigation();
   const [challenges, setChallenges] = useState([
-    { id: "1", name: "Calcul mental", time: "3 min", benefits: "Améliore la vitesse de raisonnement", done: false },
+    { id: "1", name: "Calcul mental", time: "1 min", benefits: "Améliore la vitesse de raisonnement", done: false },
     { id: "2", name: "N-Back",       time: "5 min", benefits: "Renforce la mémoire de travail",       done: false },
   ]);
 
@@ -24,7 +26,15 @@ export default function MentalScreen() {
         styles.challengeCard,
         { backgroundColor: item.done ? "#a5d6a7" : "rgba(245,245,245,0.95)" },
       ]}
-      onPress={() => toggleChallenge(item.id)}
+      onPress={() => {
+        if (item.name === "Calcul mental") {
+          navigation.navigate("CalculMentalSelect");
+        } else if (item.name === "N-Back") {
+          navigation.navigate("NBack", { n: 2, length: 30, intervalMs: 2000 });
+        } else {
+          toggleChallenge(item.id);
+        }
+      }}
       activeOpacity={0.85}
     >
       <Text style={styles.challengeTitle}>{item.name}</Text>

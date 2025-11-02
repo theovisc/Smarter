@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
@@ -8,6 +8,13 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 import { useNavigation } from "@react-navigation/native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from "react-native-reanimated";
+
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -15,6 +22,22 @@ export default function HomeScreen() {
 
   const adjustedMarginBottom = insets.bottom > 20 ? -10 : 0;
   const bottomSpace = responsiveHeight(12) + insets.bottom;
+
+  // Valeur d’opacité du voile
+  const overlayOpacity = useSharedValue(1); // 1 = complètement opaque au début
+
+  // Effet de fondu au démarrage
+  useEffect(() => {
+    overlayOpacity.value = withTiming(0.35, {
+      duration: 2500, // ms
+      easing: Easing.out(Easing.quad),
+    });
+  }, []);
+
+  // Style animé pour le voile
+  const overlayStyle = useAnimatedStyle(() => ({
+    opacity: overlayOpacity.value,
+  }));
 
   return (
     <View style={{ flex: 1 }}>
@@ -32,8 +55,26 @@ export default function HomeScreen() {
         style={StyleSheet.absoluteFillObject}
       />
 
+      {/* Voile blanc animé au-dessus */}
+      <Animated.View
+        pointerEvents="none"
+        style={[styles.startOverlay, overlayStyle]}
+      />
+
+
       {/* CONTENU PRINCIPAL */}
       <SafeAreaView style={[styles.safeArea, { backgroundColor: "transparent" }]}>
+        {/* Bouton Settings */}
+        <View style={[styles.settings, {marginTop: insets.top}]}>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={() => navigation.navigate("Settings")}
+            style={styles.settingsbutton}
+          >
+            <Text style={styles.settingsText}>⚙️ Paramètres</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={[styles.container, { paddingBottom: bottomSpace }]}>
           <View style={styles.textBlock}>
             <Text style={styles.title}>Bonjour, Théo</Text>
@@ -46,9 +87,10 @@ export default function HomeScreen() {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => navigation.navigate("DailyBoost")}
+            style={styles.shadowWrapper}
           >
             <LinearGradient
-              colors={["#2ecc71", "#1E88E5", "#e74c3c"]}
+              colors={["#2ecc71", "#e74c3c"]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.dailyBoost}
@@ -103,6 +145,41 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff", // fond global
   },
 
+  settings: {
+  position: "absolute",
+  top: responsiveHeight(2),
+  right: responsiveWidth(5),
+  },
+
+  settingsbutton: {
+    width: responsiveWidth(22),
+    height: responsiveHeight(5.2),
+    backgroundColor: "rgba(255,255,255,0.25)", // blanc translucide
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.35)", // léger contour brillant
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 5,
+    elevation: 5, // ombre Android
+    backdropFilter: "blur(10px)", // (optionnel, fonctionne parfois sous iOS)
+  },
+
+  settingsText: {
+    color: "#fff",
+    fontWeight: "600",
+    fontSize: responsiveFontSize(2),
+    textAlign: "center",
+  },
+
+  startOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(255, 255, 255, 1)", // 👈 bien visible au début
+  },
+
   container: {
     flex: 1,
     justifyContent: "flex-end",
@@ -137,11 +214,15 @@ const styles = StyleSheet.create({
     borderRadius: responsiveHeight(2),
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 4,
-    elevation: 5,
+  },
+
+  shadowWrapper: {
+    shadowColor: "#000000ff",
+    shadowOpacity: 0.35,
+    shadowOffset: { width: 0, height: 8 },
+    shadowRadius: 10,
+    elevation: 10,
+    borderRadius: responsiveHeight(2),
   },
 
   bottomBar: {
