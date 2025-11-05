@@ -7,15 +7,26 @@ import CalculMentalScreen from "./src/screens/CalculMentalScreen";
 import CalculMentalSelectScreen from "./src/screens/CalculMentalSelectScreen";
 import NBackScreen from "./src/screens/NBackScreen";
 import TravailScreen from "./src/screens/TravailScreen";
+import NBackVisuelScreen from "./src/screens/NBackVisuelScreen";
+import NBackDualScreen from "./src/screens/NBackDualScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        
+      <Stack.Navigator 
+        screenOptions={{ headerShown: false }}
+        initialRouteName="Travail"
+      >
+
         <Stack.Screen name="Home" component={HomeScreen} />
+
+        <Stack.Screen name="Travail" component={TravailScreen} />
+
+        <Stack.Screen name="NBackDual" component={NBackDualScreen} />
+
+        <Stack.Screen name="NBackVisuel" component={NBackVisuelScreen} />
         
         <Stack.Screen
           name="Mental"
@@ -56,7 +67,7 @@ export default function App() {
           component={NBackScreen}
         />
 
-        <Stack.Screen name="Travail" component={TravailScreen} />
+        
         
       </Stack.Navigator>
     </NavigationContainer>
