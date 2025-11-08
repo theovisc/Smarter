@@ -1,7 +1,12 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
+} from "react-native-responsive-dimensions";
 
 export default function TravailScreen() {
   return (
@@ -15,9 +20,9 @@ export default function TravailScreen() {
       />
       
       {/* CONTENU */}
-      <SafeAreaView style={styles.container}>
-        <View style={styles.title}>
-
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Deep Work</Text>
         </View>
       </SafeAreaView>
     </View>
@@ -27,11 +32,16 @@ export default function TravailScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
+
   },
 
   title: {
-    
+    fontSize: responsiveFontSize(4.2),
+    fontWeight: "bold",
+    color: "#4b0082", // violet foncé
+    textAlign: "center",
+    marginVertical: responsiveHeight(3),
   }
 });

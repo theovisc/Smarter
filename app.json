@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "Smarter",
-    "slug": "Smarter",
+    "name": "EvoVersion",
+    "slug": "EvoVersion",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "plugins": ["expo-media-library"],
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {

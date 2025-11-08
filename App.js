@@ -2,13 +2,14 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen";
-import MentalScreen from "./src/screens/MentalScreen"; // tu as déjà ce fichier
+import MentalScreen from "./src/screens/MentalScreen"; 
 import CalculMentalScreen from "./src/screens/CalculMentalScreen";
 import CalculMentalSelectScreen from "./src/screens/CalculMentalSelectScreen";
 import NBackScreen from "./src/screens/NBackScreen";
 import TravailScreen from "./src/screens/TravailScreen";
 import NBackVisuelScreen from "./src/screens/NBackVisuelScreen";
 import NBackDualScreen from "./src/screens/NBackDualScreen";
+import TESTScreen from "./src/screens/TESTScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +18,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator 
         screenOptions={{ headerShown: false }}
-        initialRouteName="Travail"
+        initialRouteName="Home"
       >
 
         <Stack.Screen name="Home" component={HomeScreen} />
@@ -62,13 +63,10 @@ export default function App() {
           component={CalculMentalScreen}
         />
 
-        <Stack.Screen
-          name="NBack"
-          component={NBackScreen}
-        />
+        <Stack.Screen name="NBack" component={NBackScreen} />
 
-        
-        
+        <Stack.Screen name="TEST" component={TESTScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
