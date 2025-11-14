@@ -165,12 +165,8 @@ export default function NBackVisualScreen() {
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
             <Text style={styles.backTxt}>← Retour</Text>
           </TouchableOpacity>
-          <Text style={styles.title}>N-Back visuel</Text>
-          <View style={{ width: responsiveWidth(20), alignItems: "flex-end" }}>
-            <View style={styles.nBadge}>
-              <Text style={styles.nText}>N = {N}</Text>
-            </View>
-          </View>
+          <Text style={[styles.title, { flex: 1, textAlign: 'center' }]}>N-Back visuel</Text>
+          <View style={{ width: responsiveWidth(20) }} />
         </View>
 
         {/* Progression */}
@@ -189,6 +185,13 @@ export default function NBackVisualScreen() {
               />
             );
           })}
+        </View>
+
+        {/* N Badge en dessous de la grille */}
+        <View style={styles.nBadgeContainer}>
+          <View style={styles.nBadge}>
+            <Text style={styles.nText}>N = {N}</Text>
+          </View>
         </View>
 
         {/* Boutons */}
@@ -223,8 +226,13 @@ export default function NBackVisualScreen() {
               <TouchableOpacity style={styles.restartBtn} onPress={start}>
                 <Text style={styles.restartTxt}>Rejouer</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.restartBtn} onPress={() => navigation.goBack()}>
-                <Text style={styles.restartTxt}>Retour</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Home", { animation: "slide_from_right" })
+                }
+                style={styles.restartBtn}
+              >
+                <Text style={styles.restartTxt}>Accueil</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -250,13 +258,18 @@ const styles = StyleSheet.create({
   },
   backTxt: { color: "#0f5132", fontWeight: "600", fontSize: responsiveFontSize(1.9) },
   title: { fontSize: responsiveFontSize(3), fontWeight: "800", color: "#0f5132" },
+  nBadgeContainer: {
+    alignItems: 'center',
+    marginTop: responsiveHeight(1),
+    marginBottom: responsiveHeight(2),
+  },
   nBadge: {
     backgroundColor: "rgba(255,255,255,0.3)",
     paddingHorizontal: responsiveWidth(3),
     paddingVertical: responsiveHeight(0.8),
     borderRadius: 10,
   },
-  nText: { color: "#0f5132", fontWeight: "700", fontSize: responsiveFontSize(1.8) },
+  nText: { color: "#0f5132", fontWeight: "700", fontSize: responsiveFontSize(2.3) },
   progress: {
     color: "#0f5132",
     fontSize: responsiveFontSize(2),

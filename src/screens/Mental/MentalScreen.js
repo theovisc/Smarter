@@ -30,7 +30,7 @@ export default function MentalScreen() {
         if (item.name === "Calcul mental") {
           navigation.navigate("CalculMentalSelect");
         } else if (item.name === "N-Back") {
-          navigation.navigate("NBack", { n: 2, length: 30, intervalMs: 2000 });
+          navigation.navigate("NBackSelect");
         } else {
           toggleChallenge(item.id);
         }
@@ -47,7 +47,7 @@ export default function MentalScreen() {
     <View style={{ flex: 1 }}>
       {/* FOND D'ÉCRAN EN DÉGRADÉ */}
       <LinearGradient
-        colors={["#e8f7ee", "#c7efda", "#a4e5c2", "#7fd7a6"]} // vert très clair → vert doux
+        colors={["#e8f7ee", "#bfead6", "#8fdbba", "#68caa0"]} // vert très clair → vert doux
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         style={StyleSheet.absoluteFillObject}
@@ -63,6 +63,16 @@ export default function MentalScreen() {
           renderItem={renderChallenge}
           contentContainerStyle={styles.listContainer}
         />
+
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Home", { animation: "slide_from_right" })
+          }
+          style={styles.backButton}
+        >
+          <Text style={styles.backText}>Retour →</Text>
+        </TouchableOpacity>
+
       </SafeAreaView>
     </View>
   );
@@ -110,5 +120,18 @@ const styles = StyleSheet.create({
   challengeBenefits: {
     fontSize: responsiveFontSize(2.1),
     color: "#4a4a4a",
+  },
+  backButton: {
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center", 
+    bottom: responsiveHeight(4),
+    left: 0,
+    right: 0,             
+  },
+  backText: {
+    fontSize: responsiveFontSize(2.2),
+    color: "#0f5132",
+    fontWeight: "600",
   },
 });

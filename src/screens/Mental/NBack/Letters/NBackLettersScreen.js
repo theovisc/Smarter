@@ -191,11 +191,6 @@ export default function NBackScreen() {
             <Text style={styles.stimulusText}>
               {sequence[index] ?? "—"}
             </Text>
-            {index >= N && (
-              <Text style={styles.helper}>
-                Compare avec l’élément {N} en arrière
-              </Text>
-            )}
           </View>
 
           {/* Boutons de réponse */}

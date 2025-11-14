@@ -29,7 +29,7 @@ export default function HomeScreen() {
   // Effet de fondu au démarrage
   useEffect(() => {
     overlayOpacity.value = withTiming(0.35, {
-      duration: 2500, // ms
+      duration: 2000, // ms
       easing: Easing.out(Easing.quad),
     });
   }, []);
@@ -90,12 +90,13 @@ export default function HomeScreen() {
             style={styles.shadowWrapper}
           >
             <LinearGradient
-              colors={["#2ecc71", "#e74c3c"]}
+              colors={["#2ecc71", "#2ecc71", "#e74c3c", "#e74c3c"]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
+              locations={[0, 0.3, 0.7, 1]}
               style={styles.dailyBoost}
             >
-              <Text style={styles.DailyBoostText}>Daily Boost</Text>
+              <Text style={styles.DailyBoostText}>Evolve</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -203,13 +204,13 @@ const styles = StyleSheet.create({
   },
 
   DailyBoostText: {
-    color: "#fff",
+    color: "#ffffffff",
     fontWeight: "bold",
-    fontSize: responsiveFontSize(2.5),
+    fontSize: responsiveFontSize(2.6),
   },
 
   dailyBoost: {
-    width: responsiveWidth(35),
+    width: responsiveWidth(30),
     height: responsiveHeight(8),
     borderRadius: responsiveHeight(2),
     justifyContent: "center",

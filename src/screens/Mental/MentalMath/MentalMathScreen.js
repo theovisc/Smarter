@@ -8,7 +8,7 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import NumericKeyboard from "../components/NumericKeyboard";
+import NumericKeyboard from "@components/NumericKeyboard";
 
 // --- Helpers niveau → bornes ---
 const LEVELS = {
@@ -146,7 +146,7 @@ export default function CalculMentalScreen() {
         {/* Header simple */}
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
-            <Text style={styles.backTxt}>← Accueil</Text>
+            <Text style={styles.backTxt}>← Retour</Text>
           </TouchableOpacity>
           <Text style={styles.timer}>{timeLeft}s</Text>
         </View>
@@ -181,8 +181,13 @@ export default function CalculMentalScreen() {
               <TouchableOpacity style={styles.actionBtn} onPress={restart}>
                 <Text style={styles.actionTxt}>Rejouer</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.actionBtn} onPress={() => navigation.goBack()}>
-                <Text style={styles.actionTxt}>Retour</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Home", { animation: "slide_from_right" })
+                }
+                style={styles.actionBtn}
+              >
+                <Text style={styles.actionTxt}>Accueil</Text>
               </TouchableOpacity>
             </View>
           </View>
