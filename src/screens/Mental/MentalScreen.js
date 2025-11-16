@@ -13,7 +13,7 @@ export default function MentalScreen() {
   const navigation = useNavigation();
   const [challenges, setChallenges] = useState([
     { id: "1", name: "Calcul mental", time: "1 min", benefits: "Améliore la vitesse de raisonnement", done: false },
-    { id: "2", name: "N-Back",       time: "5 min", benefits: "Renforce la mémoire de travail",       done: false },
+    { id: "2", name: "N-Back",       time: "1-2 min", benefits: "Renforce la mémoire de travail",       done: false },
   ]);
 
   const toggleChallenge = (id) => {

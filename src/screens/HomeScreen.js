@@ -13,6 +13,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   Easing,
+  withRepeat,
 } from "react-native-reanimated";
 
 
@@ -37,6 +38,20 @@ export default function HomeScreen() {
   // Style animé pour le voile
   const overlayStyle = useAnimatedStyle(() => ({
     opacity: overlayOpacity.value,
+  }));
+
+  // Animation de l’éclair lumineux
+  const offset = useSharedValue(-responsiveWidth(25)); // position hors écran au départ
+
+  // Animation infinie
+  offset.value = withRepeat(
+    withTiming(responsiveWidth(25), { duration: 3300 }),
+    -1,  // infinite
+    false
+  );
+
+  const highlightStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: offset.value }, { rotate: "35deg" }],
   }));
 
   return (
@@ -83,10 +98,10 @@ export default function HomeScreen() {
             </Text>
           </View>
 
-          {/* Bouton Daily Boost */}
+          {/* Bouton Evolve */}
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigation.navigate("DailyBoost")}
+            onPress={() => navigation.navigate("Evolve")}
             style={styles.shadowWrapper}
           >
             <LinearGradient
@@ -96,6 +111,17 @@ export default function HomeScreen() {
               locations={[0, 0.3, 0.7, 1]}
               style={styles.dailyBoost}
             >
+              <Animated.View
+                style={[
+                  {
+                    position: "absolute",
+                    width: 30,
+                    height: "400%",
+                    backgroundColor: "rgba(30,136,229,0.08)", // bleu foncé transparent
+                  },
+                  highlightStyle,
+                ]}
+              />
               <Text style={styles.DailyBoostText}>Evolve</Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -122,14 +148,14 @@ export default function HomeScreen() {
 
           <TouchableOpacity
             style={styles.circle}
-            onPress={() => navigation.navigate("IA")}
+            onPress={() => navigation.navigate("AI")}
           >
             <Text style={styles.circleText}>IA</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.button, styles.physique]}
-            onPress={() => navigation.navigate("Physique")}
+            onPress={() => navigation.navigate("Physical")}
           >
             <Text style={styles.buttonText}>Physique</Text>
           </TouchableOpacity>

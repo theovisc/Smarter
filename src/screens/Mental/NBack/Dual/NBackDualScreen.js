@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     gap: responsiveWidth(2.5), marginBottom: responsiveHeight(3),
   },
   cell: {
-    width: "30%", aspectRatio: 1, borderRadius: 14,
+    width: "30%", height: responsiveHeight(10), aspectRatio: 1, borderRadius: 14,
     backgroundColor: "rgba(255,255,255,0.45)", borderWidth: 2,
     borderColor: "rgba(255,255,255,0.6)",
   },

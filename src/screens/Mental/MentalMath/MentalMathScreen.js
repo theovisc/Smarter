@@ -8,7 +8,7 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import NumericKeyboard from "@components/NumericKeyboard";
+import NumericKeyboard from "@components/Mental/NumericKeyboard";
 
 // --- Helpers niveau → bornes ---
 const LEVELS = {
